@@ -31,17 +31,17 @@ cond2 = (SMroot > SMroot_p40).astype(int)
 timename = "time"
 # %%
 # SMroot must go from over 40th pencentile to under 20th pencentile in 4 pentads or less
-print("#### Processing cond4")
+print("#### Processing cond3")
 cond3 = (cond1 * (sum([cond2.shift({timename: sft}) for sft in range(1,5)]) > 0)).astype(int)
 # duration of the drought between 4 and 18 pentads (until SMroot gets above 20th pencentile again)
-print("#### Processing cond5")
+print("#### Processing cond4")
 cond4 = (sum([cond1.shift({timename: sft * -1}) for sft in range(0, 4)]) == 4).astype(int)
 
-print("#### Processing cond6")
+print("#### Processing cond5")
 cond5 = (sum([cond1.shift({timename: sft * -1}) for sft in range(0, 19)]) <= 18).astype(int)
 
 # cond4*cond5*cond6 gives True on the possible onsets of flash droughts
-print("#### Processing cond7")
+print("#### Processing cond6")
 cond6 = cond3 * cond4 * cond5
 #%%
 def fd(onsets, under25) :
